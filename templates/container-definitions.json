@@ -1,0 +1,28 @@
+[
+    {
+        "name": "${container_name}",
+        "image": "${image_name}",
+        "memory": ${container_memory},
+        "cpu": ${container_cpu},
+
+        "portMappings": [
+            {
+                "containerPort": ${port},
+                "hostPort": ${port},
+                "protocol": "tcp"
+            }
+        ],
+        "mountPoints": ${jsonencode(mount_points)},
+        "environment": ${jsonencode(environment)},
+        "secrets": ${jsonencode(secrets)},
+        "essential": true,
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "${cloudwatch_log_group}",
+                "awslogs-stream-prefix": "${cloudwatch_log_stream_prefix}",
+                "awslogs-region": "${cloudwatch_log_region}"
+            }
+        }
+    }
+]
