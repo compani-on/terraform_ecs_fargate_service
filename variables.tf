@@ -87,6 +87,12 @@ variable "domain_name" {
   description = "Domain name for service"
 }
 
+variable "assign_path" {
+  type        = list(string)
+  default     = null
+  description = "Specific path name for service"
+}
+
 variable "additional_domain_names" {
   type        = list(string)
   default     = []
