@@ -108,7 +108,7 @@ resource "aws_lb_listener_rule" "lb_rule" {
 }
 
 resource "aws_lb_listener_rule" "lb_path_rule" {
-  count = local.assign_path ? 1 : 0
+  count = length(var.assign_path) == 0 ? 1 : 0
 
   listener_arn = var.lb_listener_arn
   priority     = var.lb_listener_priority
@@ -120,7 +120,7 @@ resource "aws_lb_listener_rule" "lb_path_rule" {
 
   condition {
     path_pattern {
-      values = local.assign_path
+      values = var.assign_path
     }
   }
 

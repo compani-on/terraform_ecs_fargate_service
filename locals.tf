@@ -1,6 +1,5 @@
 locals {
   assign_domain_name = var.domain_name != null
-  assign_path        = var.assign_path != null
 
   container_definitions = templatefile(
     "${path.module}/templates/container-definitions.json",
