@@ -71,7 +71,7 @@ resource "aws_ecs_service" "service" {
 ################################################################################
 
 resource "aws_lb_target_group" "target_group" {
-  count = local.assign_domain_name ? 1 : 0
+  count = local.assign_domain_name ? 1 : length(var.assign_path) != 0 ? 1 : 0
 
   name        = "${var.name}-lb-tg"
   port        = var.port
