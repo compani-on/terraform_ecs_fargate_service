@@ -81,6 +81,18 @@ variable "lb_listener_priority" {
   description = "ALB priority"
 }
 
+variable "lb_rule_subdomain" {
+  type        = bool
+  default     = false
+  description = "Create load balance rule with subdomain"
+}
+
+variable "lb_rule_path" {
+  type        = bool
+  default     = false
+  description = "Create load balance rule with path"
+}
+
 variable "domain_name" {
   type        = string
   default     = null
@@ -90,7 +102,7 @@ variable "domain_name" {
 variable "assign_path" {
   type        = list(string)
   default     = null
-  description = "Specific path name for service"
+  description = "Specific path names for service"
 }
 
 variable "additional_domain_names" {
@@ -144,12 +156,12 @@ variable "tags" {
 }
 
 variable "efs_volumes" {
-  type          = list(object({
+  type = list(object({
     path            = string
     name            = string
     fs_id           = string
     access_point_id = string
   }))
-  default       = []
-  description   = "EFS volumes"
+  default     = []
+  description = "EFS volumes"
 }

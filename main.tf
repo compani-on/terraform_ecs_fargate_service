@@ -41,7 +41,7 @@ resource "aws_ecs_service" "service" {
   tags            = var.tags
 
   dynamic "load_balancer" {
-    for_each = local.assign_domain_name ? [1] : []
+    for_each = var.lb_rule_subdomain ? [1] : []
 
     content {
       target_group_arn = aws_lb_target_group.target_group[0].arn
@@ -71,7 +71,7 @@ resource "aws_ecs_service" "service" {
 ################################################################################
 
 resource "aws_lb_target_group" "target_group" {
-  count = local.assign_domain_name ? 1 : length(var.assign_path) != 0 ? 1 : 0
+  count = var.lb_rule_subdomain || var.lb_rule_path ? 1 : 0
 
   name        = "${var.name}-lb-tg"
   port        = var.port
@@ -90,7 +90,7 @@ resource "aws_lb_target_group" "target_group" {
 }
 
 resource "aws_lb_listener_rule" "lb_rule" {
-  count = local.assign_domain_name ? 1 : 0
+  count = var.lb_rule_subdomain ? 1 : 0
 
   listener_arn = var.lb_listener_arn
   priority     = var.lb_listener_priority
@@ -108,7 +108,7 @@ resource "aws_lb_listener_rule" "lb_rule" {
 }
 
 resource "aws_lb_listener_rule" "lb_path_rule" {
-  count = length(var.assign_path) != 0 ? 1 : 0
+  count = var.lb_rule_path ? 1 : 0
 
   listener_arn = var.lb_listener_arn
   priority     = var.lb_listener_priority
