@@ -91,6 +91,8 @@ resource "aws_lb_target_group" "target_group" {
 
 
 resource "aws_lb_target_group_attachment" "service_target" {
+  count            = var.lb_rule_path ? 1 : 0
+
   target_group_arn = aws_lb_target_group.target_group.arn
   target_id        = aws_ecs_service.service.id
 }
