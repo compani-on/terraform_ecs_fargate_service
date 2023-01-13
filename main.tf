@@ -41,7 +41,7 @@ resource "aws_ecs_service" "service" {
   tags            = var.tags
 
   dynamic "load_balancer" {
-    for_each = var.lb_rule_subdomain ? [1] : []
+    for_each = var.lb_rule_subdomain || var.lb_rule_path ? [1] : []
 
     content {
       target_group_arn = aws_lb_target_group.target_group[0].arn
@@ -88,15 +88,6 @@ resource "aws_lb_target_group" "target_group" {
     matcher             = var.health_check_matcher
   }
 }
-
-
-resource "aws_lb_target_group_attachment" "service_target" {
-  count            = var.lb_rule_path ? 1 : 0
-
-  target_group_arn = aws_lb_target_group.target_group[0].arn
-  target_id        = aws_ecs_service.service.id
-}
-
 
 resource "aws_lb_listener_rule" "lb_rule" {
   count = var.lb_rule_subdomain ? 1 : 0
