@@ -89,6 +89,13 @@ resource "aws_lb_target_group" "target_group" {
   }
 }
 
+
+resource "aws_lb_target_group_attachment" "service_target" {
+  target_group_arn = aws_lb_target_group.target_group.arn
+  target_id        = aws_ecs_service.service.id
+}
+
+
 resource "aws_lb_listener_rule" "lb_rule" {
   count = var.lb_rule_subdomain ? 1 : 0
 
