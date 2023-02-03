@@ -58,7 +58,7 @@ resource "aws_ecs_service" "service" {
   lifecycle {
     prevent_destroy       = false
     create_before_destroy = true
-    ignore_changes        = [desired_count]
+    ignore_changes        = [desired_count, aws_ecs_task_definition.task_definition.revision]
   }
   deployment_controller {
     type = "ECS"
