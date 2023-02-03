@@ -3,6 +3,11 @@ variable "cluster_id" {
   description = "ECS Cluster ID"
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "ECS Cluster Name"
+}
+
 variable "name" {
   type        = string
   description = "Task/Service name"

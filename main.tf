@@ -150,7 +150,7 @@ resource "aws_cloudwatch_log_group" "log_group" {
 resource "aws_appautoscaling_target" "dev_to_target" {
   max_capacity       = var.ecs_autoscale_max_instances
   min_capacity       = var.ecs_autoscale_min_instances
-  resource_id        = aws_ecs_service.service.name
+  resource_id        = "service/${var.cluster_name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
