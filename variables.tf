@@ -165,3 +165,12 @@ variable "efs_volumes" {
   default     = []
   description = "EFS volumes"
 }
+
+variable "ecs_autoscale_min_instances" {
+  type = number
+  default = 1
+}
+variable "ecs_autoscale_max_instances" {
+  type = number
+  default = 5
+}
