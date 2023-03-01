@@ -13,6 +13,11 @@ variable "name" {
   description = "Task/Service name"
 }
 
+variable "env" {
+  type        = string
+  description = "Using environment"
+}
+
 variable "port" {
   type        = number
   default     = 80
@@ -172,10 +177,10 @@ variable "efs_volumes" {
 }
 
 variable "ecs_autoscale_min_instances" {
-  type = number
+  type    = number
   default = 1
 }
 variable "ecs_autoscale_max_instances" {
-  type = number
+  type    = number
   default = 5
 }

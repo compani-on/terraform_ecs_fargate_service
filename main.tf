@@ -73,7 +73,7 @@ resource "aws_ecs_service" "service" {
 resource "aws_lb_target_group" "target_group" {
   count = var.lb_rule_subdomain || var.lb_rule_path ? 1 : 0
 
-  name        = "${var.name}-lb-tg"
+  name        = "${var.env}-${var.name}-lb-tg"
   port        = var.port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -137,7 +137,7 @@ resource "aws_lb_listener_rule" "lb_path_rule" {
 ################################################################################
 
 resource "aws_cloudwatch_log_group" "log_group" {
-  name              = var.name
+  name              = "${var.env}-${var.name}"
   retention_in_days = var.cloudwatch_logs_retention_period
 
   tags = var.tags
