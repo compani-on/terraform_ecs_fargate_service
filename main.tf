@@ -126,7 +126,7 @@ resource "aws_lb_listener_rule" "lb_path_rule" {
 
   condition {
     host_header {
-      values = [var.domain_name]
+      values = var.domain_names
     }
   }
 }

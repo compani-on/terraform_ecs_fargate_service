@@ -103,9 +103,9 @@ variable "lb_rule_path" {
   description = "Create load balance rule with path"
 }
 
-variable "domain_name" {
-  type        = string
-  default     = null
+variable "domain_names" {
+  type        = list(string)
+  default     = []
   description = "Domain name for service"
 }
 
