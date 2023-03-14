@@ -102,7 +102,7 @@ resource "aws_lb_listener_rule" "lb_rule" {
 
   condition {
     host_header {
-      values = concat([var.domain_name], var.additional_domain_names)
+      values = concat(var.domain_names, var.additional_domain_names)
     }
   }
 }
