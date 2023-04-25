@@ -154,6 +154,7 @@ resource "aws_appautoscaling_target" "dev_to_target" {
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 }
+
 resource "aws_appautoscaling_policy" "dev_to_memory" {
   name               = "dev-to-memory"
   policy_type        = "TargetTrackingScaling"
@@ -166,16 +167,16 @@ resource "aws_appautoscaling_policy" "dev_to_memory" {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"
     }
 
-    target_value       = 80
+    target_value = 80
   }
 }
 
 resource "aws_appautoscaling_policy" "dev_to_cpu" {
-  name = "dev-to-cpu"
-  policy_type = "TargetTrackingScaling"
-  resource_id = aws_appautoscaling_target.dev_to_target.resource_id
+  name               = "dev-to-cpu"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.dev_to_target.resource_id
   scalable_dimension = aws_appautoscaling_target.dev_to_target.scalable_dimension
-  service_namespace = aws_appautoscaling_target.dev_to_target.service_namespace
+  service_namespace  = aws_appautoscaling_target.dev_to_target.service_namespace
 
   target_tracking_scaling_policy_configuration {
     predefined_metric_specification {
@@ -183,5 +184,24 @@ resource "aws_appautoscaling_policy" "dev_to_cpu" {
     }
 
     target_value = 80
+  }
+}
+
+resource "aws_appautoscaling_policy" "ecs_scale_down_policy" {
+  name               = "ecs-scale-down-policy"
+  policy_type        = "StepScaling"
+  resource_id        = aws_appautoscaling_target.dev_to_target.resource_id
+  scalable_dimension = aws_appautoscaling_target.dev_to_target.scalable_dimension
+  service_namespace  = aws_appautoscaling_target.dev_to_target.service_namespace
+
+  step_scaling_policy_configuration {
+    adjustment_type         = "ChangeInCapacity"
+    cooldown                = 70
+    metric_aggregation_type = "Average"
+
+    step_adjustment {
+      scaling_adjustment          = -1
+      metric_interval_lower_bound = 0
+    }
   }
 }
