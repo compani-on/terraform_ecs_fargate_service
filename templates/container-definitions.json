@@ -2,8 +2,8 @@
     {
         "name": "${container_name}",
         "image": "${image_name}",
-        "memory": ${container_memory},
-        "cpu": ${container_cpu},
+        "memory": ${container_memory - 256},
+        "cpu": ${container_cpu - 32},
 
         "portMappings": [
             {
