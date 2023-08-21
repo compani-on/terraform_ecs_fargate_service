@@ -184,3 +184,7 @@ variable "ecs_autoscale_max_instances" {
   type    = number
   default = 5
 }
+variable "ignore_task_definition" {
+  type    = bool
+  default = true
+}
