@@ -2,8 +2,8 @@
     {
         "name": "${container_name}",
         "image": "${image_name}",
-        "memory": ${container_memory - 256},
-        "cpu": ${container_cpu - 32},
+        "memory": ${container_memory},
+        "cpu": ${container_cpu},
 
         "portMappings": [
             {
@@ -22,33 +22,6 @@
                 "awslogs-group": "${cloudwatch_log_group}",
                 "awslogs-stream-prefix": "${cloudwatch_log_stream_prefix}",
                 "awslogs-region": "${cloudwatch_log_region}"
-            }
-        }
-    },
-    {
-        "name": "xray-daemon",
-        "image": "amazon/aws-xray-daemon",
-        "cpu": 32,
-        "memory": 256,
-        "portMappings": [
-            {
-                "containerPort": 2000,
-                "hostPort": 2000,
-                "protocol": "udp"
-            }
-        ],
-        "essential": true,
-        "entryPoint": [],
-        "command": [],
-        "environment": [],
-        "mountPoints": [],
-        "volumesFrom": [],
-        "logConfiguration": {
-            "logDriver": "awslogs",
-            "options": {
-                "awslogs-group": "${cloudwatch_log_group}",
-                "awslogs-region": "${cloudwatch_log_region}",
-                "awslogs-stream-prefix": "${cloudwatch_log_stream_prefix}"
             }
         }
     }
