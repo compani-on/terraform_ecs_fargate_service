@@ -184,3 +184,8 @@ variable "ecs_autoscale_max_instances" {
   type    = number
   default = 5
 }
+
+variable "launch_type" {
+  type    = string
+  default = "FARGATE"
+}

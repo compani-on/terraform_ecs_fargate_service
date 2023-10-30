@@ -4,7 +4,7 @@
 
 resource "aws_ecs_task_definition" "task_definition" {
   family                   = var.name
-  requires_compatibilities = ["FARGATE"]
+  requires_compatibilities = [var.launch_type]
   network_mode             = "awsvpc"
   cpu                      = var.cpu
   memory                   = var.memory
@@ -36,7 +36,7 @@ resource "aws_ecs_service" "service" {
   name            = var.name
   cluster         = var.cluster_id
   task_definition = aws_ecs_task_definition.task_definition.arn
-  launch_type     = "FARGATE"
+  launch_type     = var.launch_type
   desired_count   = var.desired_count
   tags            = var.tags
 
