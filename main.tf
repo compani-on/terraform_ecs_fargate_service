@@ -50,11 +50,11 @@ resource "aws_ecs_service" "service" {
     }
   }
 
-  network_configuration {
-    subnets          = var.subnet_ids
-    security_groups  = var.security_groups
-    assign_public_ip = var.assign_public_ip
-  }
+#  network_configuration {
+#    subnets          = var.subnet_ids
+#    security_groups  = var.security_groups
+#    assign_public_ip = var.assign_public_ip
+#  }
   lifecycle {
     prevent_destroy       = false
     create_before_destroy = true
