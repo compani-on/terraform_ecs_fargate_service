@@ -84,7 +84,6 @@ resource "aws_lb_target_group" "target_group" {
     healthy_threshold   = 5
     unhealthy_threshold = 2
     path                = var.health_check_path
-    port                = var.health_check_port
     matcher             = var.health_check_matcher
   }
 }
