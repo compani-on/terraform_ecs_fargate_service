@@ -5,7 +5,7 @@
 resource "aws_ecs_task_definition" "task_definition" {
   family                   = var.name
   requires_compatibilities = [var.launch_type]
-  network_mode             = "host"
+  network_mode             = "bridge"
   cpu                      = var.cpu
   memory                   = var.memory
   container_definitions    = local.container_definitions
